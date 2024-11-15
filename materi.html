@@ -86,35 +86,60 @@
             height: auto;
         }
 
-        /* Kotak-kotak di bawah banner */
-        .content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Membuat 4 kolom */
-            gap: 20px;
-            padding: 50px 20px;
-            max-width: 1200px;
-            margin: auto;
+        /* Card styling (Tabs) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
-        .content div {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .content div:hover {
-            transform: translateY(-10px);
-        }
-        .content img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
-        }
-        .content p {
-            font-size: 1.2em;
-            font-weight: bold;
+        .tab {
+            background-color: white;
             color: #0288D1;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 120px; /* Ensure there's a minimum width */
+        }
+        .tab:hover {
+            background-color: #0288D1;
+            color: white;
+        }
+
+        /* Active tab styling */
+        .tab.active {
+            background-color: #0277BD;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Iframe styling */
+        .content {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        iframe {
+            width: 55%;
+            height: 520px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         /* Footer styling */
@@ -126,69 +151,39 @@
             font-size: 0.9em;
         }
 
-        /* Menghilangkan garis bawah pada link */
-        .content a {
-            text-decoration: none; /* Menghilangkan garis bawah */
-            color: inherit; /* Warna teks mengikuti warna elemen induk */
-        }
-
         /* Media Queries for Responsiveness */
         @media (max-width: 1024px) {
-            .content {
-                grid-template-columns: repeat(3, 1fr); /* 3 kolom pada tablet */
+            /* On tablet screens, make tabs wrap to 2 per row */
+            .tabs {
+                gap: 15px;
+            }
+            .tab {
+                min-width: 100px; /* Adjust the minimum width of the tabs */
             }
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.5em;
-                text-align: center;
-            }
-
-            .banner h2 {
-                font-size: 2em;
-                text-align: center;
-            }
-
-            .banner-content {
+            /* On smaller screens, make tabs vertical */
+            .tabs {
                 flex-direction: column;
-                text-align: center;
-            }
-
-            .banner img {
-                width: 120px;
-            }
-
-            .content {
-                grid-template-columns: repeat(2, 1fr); /* 2 kolom pada layar kecil */
+                align-items: center;
                 gap: 15px;
             }
-
-            .content div {
-                min-width: 100%; /* Full width on smaller screens */
-                margin: 15px 0;
-            }
-
-            .footer {
-                font-size: 0.8em;
+            .tab {
+                width: 80%; /* Make tabs take up more width on smaller screens */
             }
         }
 
         @media (max-width: 480px) {
-            .banner {
-                padding: 50px 10px;
+            /* On very small screens (phones), adjust even further */
+            .tab {
+                width: 90%; /* Make tabs nearly full-width */
+                font-size: 1em; /* Adjust font size */
             }
 
-            .banner h2 {
-                font-size: 1.8em;
-            }
-
-            .content {
-                grid-template-columns: 1fr; /* 1 kolom pada ponsel */
-            }
-
-            .content p {
-                font-size: 1em;
+            iframe {
+                width: 95%; /* Make iframe width responsive */
+                height: 400px; /* Reduce height of iframe for mobile */
             }
         }
     </style>
@@ -207,30 +202,33 @@
         <div class="banner">
             <div class="banner-content">
                 <img src="banner.gif" alt="Molecule"> <!-- Gambar molekul -->
-                <h2>Yuk Belajar Kepolaran Molekul</h2>
+                <h2>Materi Kepolaran Molekul</h2>
             </div>
         </div>
 
-        <!-- Content Section -->
+        <!-- Tabs (Card-like buttons) -->
+        <div class="tabs">
+            <div class="tab" onclick="window.location.href='index.html'">
+                <img src="https://img.icons8.com/color/20/000000/home-page.png" alt="Home Icon">
+                Home
+            </div>
+            <div class="tab active" onclick="window.location.href='materi.html'">
+                <img src="https://img.icons8.com/color/20/000000/books.png" alt="Materi Icon">
+                Materi
+            </div>
+            <div class="tab" onclick="window.location.href='video.html'">
+                <img src="https://img.icons8.com/color/20/000000/video.png" alt="Video Icon">
+                Video
+            </div>
+            <div class="tab" onclick="window.location.href='simulasi.html'">
+                <img src="https://img.icons8.com/color/20/000000/3d-glasses.png" alt="Simulasi Icon">
+                Simulasi
+            </div>
+        </div>
+
+        <!-- Content Section (iframe untuk materi) -->
         <div class="content">
-            <div>
-                <a href="materi.html">
-                    <img src="https://img.icons8.com/color/100/000000/books.png" alt="Materi Icon">
-                    <p>Materi</p>
-                </a>
-            </div>
-            <div>
-                <a href="video.html">
-                    <img src="https://img.icons8.com/color/100/000000/video.png" alt="Video Icon">
-                    <p>Video</p>
-                </a>
-            </div>
-            <div>
-                <a href="simulasi.html">
-                    <img src="https://img.icons8.com/color/100/000000/3d-glasses.png" alt="Simulasi Icon">
-                    <p>Simulasi</p>
-                </a>
-            </div>
+            <iframe src="https://drive.google.com/file/d/13PCe8mAg3hj30yM7pcD1EdM_01SbFM1Y/preview" allow="autoplay"></iframe>
         </div>
     </div>
 
