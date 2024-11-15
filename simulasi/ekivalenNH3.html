@@ -100,6 +100,36 @@
             transform: translateX(-50%);
         }
 
+        .element-box {
+            display: inline-block;
+            width: 80px;
+            height: 100px;
+            background-color: #f4c2c2;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            margin: 10px;
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        .element-box .symbol {
+            font-size: 36px;
+            font-weight: bold;
+            color: green;
+            margin-top: 10px;
+        }
+
+        .element-box .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
     </style>
 </head>
 <body>
@@ -154,6 +184,18 @@
             <div class="electron" style="top: 100%; left: 55%;"></div>
             <div class="electron" id="NE-3" style="top: 50%; left: 100%;"></div>
         </div>
+    </div>
+</div>
+
+<div style="position: relative; width: 100%; margin-top: -300px;">
+    <div class="element-box" style="position: absolute; right: 20px;">
+        <div class="symbol" style="color: #0855c0;">H</div>
+        <div class="value">2.1</div>
+    </div>
+
+    <div class="element-box" style="position: absolute; right: 110px;">
+        <div class="symbol" style="color: #008000;">N</div>
+        <div class="value">3.0</div>
     </div>
 </div>
 
