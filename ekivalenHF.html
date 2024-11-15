@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kepolaran molekul berdasarkan keelektronegatifan</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f6f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Menyembunyikan scroll pada konten */
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .atom-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin-top: 0px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .atom {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+        }
+
+        .core {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+
+        .layer {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #de2e8f;
+            background-color: rgba(233, 203, 222, 0.2);
+        }
+
+        .electron {
+            width: 10px;
+            height: 10px;
+            background-color: rgb(86, 90, 90);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        #H {
+            background-color: #0855c0; /* Warna untuk H */
+            left: 160px; /* Posisi atom H */
+            transition: transform 1s;
+        }
+
+        #F {
+            background-color: #acac04; /* Warna untuk F */
+            left: 500px; /* Posisi atom F */
+        }
+
+        /* Style untuk radio buttons */
+        .reaction-options {
+            margin-top: 20px;
+        }
+
+        .layer-oval {
+            transition: transform 1s ease-in-out; /* Menambahkan easing yang lebih halus */
+            transform: scaleX(1.5); /* Membuat lapisan H melonjong ke arah F */
+            transform-origin: left center; /* Menjaga sisi elektron melonjong */
+        }
+
+        /* Lapisan kembali ke bentuk semula dengan lebih halus */
+        .layer {
+            transition: transform 1s ease-in-out;
+        }
+
+        .electron {
+            transition: top 1s ease-in-out;
+        }
+
+        .delta {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- Radio buttons untuk memilih reaksi -->
+<div class="reaction-options">
+    <label for="react">Lihat Ikatan Polar:</label>
+    <input type="radio" id="react" name="reaction" onchange="toggleReaction(true)"> Ya
+    <input type="radio" id="no-react" name="reaction" checked onchange="toggleReaction(false)"> Tidak
+</div>
+
+<div class="atom-container">
+    <!-- Atom H -->
+    <div class="atom" id="H">
+        <!-- Tanda δ+ untuk atom H -->
+        <span id="deltaH" class="delta" style="display: none;">δ+</span>
+
+        <div class="core">H</div>
+        <div class="layer" id="H-layer" style="width: 150px; height: 150px; left: 50%; top: 50%; margin-left: -75px; margin-top: -75px;">
+            <!-- Elektron H (1 elektron) pada jarak 150px -->
+            <div class="electron" id="pindah1" style="top: 50%; left: 100%; transform: translate(-50%, -50%)"></div> 
+        </div>
+    </div>
+
+    <!-- Atom F -->
+    <div class="atom" id="F">
+                
+        <!-- Tanda δ− untuk atom F -->
+        <span id="deltaF" class="delta" style="display: none;">δ−</span>
+
+        <div class="core">F</div>
+
+        <!-- Kulit pertama dengan 2 elektron -->
+        <div class="layer" id="F-layer-1" style="width: 150px; height: 150px; left: 50%; top: 50%; margin-left: -75px; margin-top: -75px;">
+            <div class="electron" style="top: 50%; left: 0%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 50%; left: 100%; transform: translate(-50%, -50%)"></div>
+        </div>
+
+        <!-- Kulit kedua dengan 8 elektron -->
+        <div class="layer" id="F-layer-2" style="width: 250px; height: 250px; left: 50%; top: 50%; margin-left: -125px; margin-top: -125px;">
+            <div class="electron" style="top: 0%; left: 50%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 0%; left: 55%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" id="pindah2" style="top: 50%; left: 0%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 100%; left: 50%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 100%; left: 55%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 50%; left: 100%; transform: translate(-50%, -50%)"></div>
+            <div class="electron" style="top: 55%; left: 100%; transform: translate(-50%, -50%)"></div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function toggleReaction(isReacting) {
+        const HLayer = document.getElementById("H-layer");
+        const FLayer = document.getElementById("F-layer-2");
+        const electronH = document.querySelector("#H .electron[id='pindah1']");
+        const electronF = document.querySelector("#F-layer-2 .electron[id='pindah2']");
+        const atomH = document.getElementById("H");
+        const atomF = document.getElementById("F");
+
+        if (isReacting) {
+
+            // Menggerakkan elektron H dan F untuk bertemu di posisi tengah
+            electronH.style.transition = "top 1s ease-in-out";
+            electronH.style.top = "45%";
+            electronF.style.transition = "top 1s ease-in-out";
+            electronF.style.top = "52%";
+            
+            
+            setTimeout(() => {
+                // Menggerakkan atom H dan F saling mendekat hingga kulit terluar mereka bertemu
+                atomH.style.transition = "transform 1s ease-in-out";
+                atomH.style.transform = "translateX(29.2px)"; // Menyesuaikan agar H berhenti di tepi kulit luar F
+                HLayer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+                HLayer.style.transform = `scaleX(1.191)`; // Membuat lapisan H melonjong ke arah F
+                HLayer.style.transformOrigin = "left center"; // Hanya sisi kiri yang melonjong
+                
+                atomF.style.transition = "transform 1s ease-in-out";
+                atomF.style.transform = "translateX(-29.2px)"; // Menyesuaikan agar F berhenti di tepi kulit luar H
+                FLayer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+                FLayer.style.transform = `scaleX(1.2)`; // Membuat lapisan H melonjong ke arah F
+                FLayer.style.transformOrigin = "right center"; 
+    
+                // Tampilkan tanda δ+ pada atom H dan δ− pada atom F
+                deltaH.style.display = "block";
+                deltaF.style.display = "block";
+            }, 1000); // Menunggu pergerakan atom selesai sebelum menyesuaikan posisi elektron
+
+            // Setelah 3 detik, atom kembali ke posisi semula
+            setTimeout(() => {
+
+            HLayer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+            HLayer.style.transform = `scaleX(1.52)`; // Membuat lapisan H melonjong ke arah F
+            HLayer.style.transformOrigin = "left center"; // Hanya sisi kiri yang melonjong
+
+            FLayer.style.transition = "transform 1s ease-in-out"; 
+            FLayer.style.transform = `scaleX(1)`;  // keposisi semula
+            FLayer.style.transformOrigin = "right center"; 
+
+            }, 3000); // 3 detik setelah elektron bergerak
+        } else {
+            // Kembali ke posisi awal
+            atomH.style.transform = "translateX(0)";
+            atomF.style.transform = "translateX(0)";
+            
+            electronH.style.top = "50%";
+            electronF.style.top = "50%";
+
+            HLayer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+            HLayer.style.transform = "scaleX(1)";
+            
+            deltaH.style.display = "none";
+            deltaF.style.display = "none";
+        }
+    }
+</script>
+
+    
+
+</body>
+</html>

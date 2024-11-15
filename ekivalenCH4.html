@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kepolaran molekul berdasarkan keelektronegatifan</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f6f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-top: 10px;
+        }
+
+        .reaction-options {
+            margin-top: 20px;
+        }
+
+        .atom-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin-top: 1px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .atom {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+        }
+
+        .core {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+
+        .layer {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #de2e8f;
+            background-color: rgba(233, 203, 222, 0.2);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .electron {
+            width: 10px;
+            height: 10px;
+            background-color: rgb(86, 90, 90);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Atom C */
+        #C {
+            background-color: #ff8c00; /* Warna untuk C */
+        }
+
+        /* Atom H */
+        .H {
+            background-color: #0855c0; /* Warna untuk H */
+        }
+
+        /* Posisi untuk atom H */
+        .H1 { top: 13%; left: 47%; }
+        .H2 { top: 46%; left: 22.4%; }
+        .H3 { top: 46%; left: 71.5%; }
+        .H4 { top: 78%; left: 47%; } /* Posisi baru untuk H keempat di bawah C */
+
+        .delta {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="reaction-options">
+    <label for="react">Lihat Ikatan NonPolar:</label>
+    <input type="radio" id="react" name="reaction" onchange="toggleReaction(true)"> Ya
+    <input type="radio" id="no-react" name="reaction" checked onchange="toggleReaction(false)"> Tidak
+</div>
+
+<div class="atom-container">
+    
+    <!-- Atom C (di tengah) -->
+    <div class="atom" id="C">
+        <span id="deltaC" class="delta" style="display: none;">δ−</span>
+        <div class="core">C</div>
+        <div class="layer" id="C-layer-1" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" style="top: 0%; left: 50%;"></div>
+            <div class="electron" style="top: 100%; left: 50%;"></div>
+        </div>
+        <div class="layer" id="C-layer-2" style="width: 200px; height: 200px; left: 50%; top: 50%; margin-left: -100px; margin-top: -100px;">
+            <div class="electron" id="C-1" style="top: 0%; left: 50%;"></div>
+            <div class="electron" id="C-2" style="top: 50%; left: 100%;"></div>
+            <div class="electron" id="C-3" style="top: 50%; left: 0%;"></div>
+            <div class="electron" id="C-4" style="top: 100%; left: 50%;"></div>
+
+
+        </div>
+    </div>
+
+    <!-- Atom H -->
+    <div class="atom H H1">
+        <span id="deltaH1" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H1-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-1" style="top: 100%; left: 50%;"></div>
+        </div>
+    </div>
+
+    <div class="atom H H2">
+        <span id="deltaH2" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H2-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-2" style="top: 50%; left: 100%;"></div>
+        </div>
+    </div>
+
+    <div class="atom H H3">
+        <span id="deltaH3" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H3-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-3" style="top: 50%; left: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- Atom H keempat (di bawah C) -->
+    <div class="atom H H4">
+        <span id="deltaH4" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H4-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-4" style="top: 0%; left: 50%;"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleReaction(isReacting) {
+    const H1Layer = document.getElementById("H1-layer");
+    const H2Layer = document.getElementById("H2-layer");
+    const H3Layer = document.getElementById("H3-layer");
+    const H4Layer = document.getElementById("H4-layer");
+
+    const electronC1 = document.getElementById("C-1");
+    const electronC2 = document.getElementById("C-2");
+    const electronC3 = document.getElementById("C-3");
+    const electronC4 = document.getElementById("C-4");
+
+
+    const electronH1 = document.getElementById("H-1");
+    const electronH2 = document.getElementById("H-2");
+    const electronH3 = document.getElementById("H-3");
+    const electronH4 = document.getElementById("H-4");
+
+
+    if (isReacting) {
+
+
+        // Ubah posisi electron  C
+        electronC1.style.transition = "0.3s ease";
+        electronC1.style.left = "48%"; 
+
+        electronC2.style.transition = "0.3s ease";
+        electronC2.style.top = "48%"; 
+
+        electronC3.style.transition = "0.3s ease";
+        electronC3.style.top = "48%"; 
+
+        electronC4.style.transition = "0.3s ease";
+        electronC4.style.left = "48%"; 
+
+        // Ubah posisi electron  H
+        electronH1.style.transition = "0.3s ease";
+        electronH1.style.left = "56%"; 
+
+        electronH2.style.transition = "0.3s ease";
+        electronH2.style.top = "56%"; 
+
+        electronH3.style.transition = "0.3s ease";
+        electronH3.style.top = "56%"; 
+
+        electronH4.style.transition = "0.3s ease";
+        electronH4.style.left = "56%"; 
+
+
+        // Pindahkan posisi atom H mendekat ke atom C sesuai arah (vertikal/horizontal)
+
+        
+        // H1 bergerak ke bawah
+        document.querySelector('.H1').style.transition = "1s ease-in-out";
+        document.querySelector('.H1').style.top = '20.65%';
+        document.querySelector('.H1').style.left = '47%';
+
+        
+        
+        // H2 bergerak ke kiri
+        document.querySelector('.H2').style.transition = "1s ease-in-out";
+        document.querySelector('.H2').style.top = '46%';
+        document.querySelector('.H2').style.left = '28%';
+        
+        // H3 bergerak ke kanan
+        document.querySelector('.H3').style.transition = "1s ease-in-out";
+        document.querySelector('.H3').style.top = '46%';
+        document.querySelector('.H3').style.left = '65.73%';
+        
+        // H4 bergerak ke atas
+        document.querySelector('.H4').style.transition = "1s ease-in-out";
+        document.querySelector('.H4').style.top = '71.1%';
+        document.querySelector('.H4').style.left = '47%';
+
+        // Menampilkan delta positif
+        setTimeout(function() {
+            document.getElementById("deltaH1").style.display = "block";
+            document.getElementById("deltaH2").style.display = "block";
+            document.getElementById("deltaH3").style.display = "block";
+            document.getElementById("deltaH4").style.display = "block";
+            document.getElementById("deltaC").style.display = "block";
+        }, 500);
+
+    } else {
+        // Kembali ke posisi semula
+
+        // Ubah posisi electron  H
+        electronC1.style.transition = "0.3s ease";
+        electronC1.style.left = "50%"; 
+
+        electronC2.style.transition = "0.3s ease";
+        electronC2.style.top = "50%"; 
+
+        electronC3.style.transition = "0.3s ease";
+        electronC3.style.top = "50%"; 
+
+        electronC4.style.transition = "0.3s ease";
+        electronC4.style.left = "50%"; 
+
+        // Ubah posisi electron  H
+        electronH1.style.transition = "0.3s ease";
+        electronH1.style.left = "50%"; 
+
+        electronH2.style.transition = "0.3s ease";
+        electronH2.style.top = "50%"; 
+
+        electronH3.style.transition = "0.3s ease";
+        electronH3.style.top = "50%"; 
+
+        electronH4.style.transition = "0.3s ease";
+        electronH4.style.left = "50%"; 
+
+        document.querySelector('.H1').style.top = '13%';
+        document.querySelector('.H1').style.left = '47%';
+        
+        document.querySelector('.H2').style.top = '46%';
+        document.querySelector('.H2').style.left = '22.4%';
+        
+        document.querySelector('.H3').style.top = '46%';
+        document.querySelector('.H3').style.left = '71.5%';
+        
+        document.querySelector('.H4').style.top = '78%';
+        document.querySelector('.H4').style.left = '47%';
+
+        // Menyembunyikan delta positif
+        setTimeout(function() {
+            document.getElementById("deltaH1").style.display = "none";
+            document.getElementById("deltaH2").style.display = "none";
+            document.getElementById("deltaH3").style.display = "none";
+            document.getElementById("deltaH4").style.display = "none";
+            document.getElementById("deltaC").style.display = "none";
+        }, 500);
+    }
+}
+
+</script>
+
+</body>
+</html>

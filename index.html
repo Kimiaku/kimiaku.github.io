@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kepolaran molekul berdasarkan keelektronegatifan</title>
+    <!-- Link to Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts for a modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('back.jpg'); /* Ganti dengan URL gambar kimia */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: #007bff;
+            background-color: white;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            padding: 15px;
+            border-radius: 0 50px 0 50px;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                inset 0 0 10px rgba(255, 255, 255, 0.6);
+            width: 84%;
+            letter-spacing: 1px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid #ddd; /* Border untuk membedakan dengan background */
+        }
+        h1::before, h1::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1::before {
+            top: -15px;
+            left: -15px;
+        }
+        h1::after {
+            bottom: -15px;
+            right: -15px;
+        }
+        h1:hover {
+            color: #0056b3;
+            transform: translateY(-5px);
+            transition: 0.3s ease-in-out;
+        }
+
+
+
+        .container {
+            margin-top: 0px;
+            display: flex;
+            flex-direction: row; /* Mengatur konten menjadi baris horizontal */
+        }
+        .nav-pills {
+            width: 200px; /* Lebar tab vertikal */
+        }
+        .tab-content {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparan sedikit untuk menampilkan gambar latar */
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Membuat konten mengambil ruang sisa */
+        }
+        .nav-link {
+            background-color: #ffffff !important;
+            color: #007bff !important;
+            border: 2px solid #7697af; /* Border di sekitar tab */
+            border-radius: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link.active {
+            background-color: #007bff !important;
+            color: white !important;
+            border: 2px solid #0056b3; /* Border untuk tab aktif */
+        }
+        iframe {
+            width: 100%;
+            height: 83vh; /* Menyesuaikan iframe dengan tinggi 80vh */
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* overflow: hidden; Menyembunyikan scroll */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Title with a more stylish design -->
+    <h1>Kepolaran Molekul Berdasarkan Keelektronegatifan</h1>
+
+    <div class="container">
+        <!-- Nav Tabs (Vertikal di Kiri) -->
+        <ul class="nav nav-pills flex-column me-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="pills-hf-tab" data-bs-toggle="pill" href="#pills-hf" role="tab" aria-controls="pills-hf" aria-selected="true">HF</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-nh3-tab" data-bs-toggle="pill" href="#pills-nh3" role="tab" aria-controls="pills-nh3" aria-selected="false">NH3</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-ch4-tab" data-bs-toggle="pill" href="#pills-ch4" role="tab" aria-controls="pills-ch4" aria-selected="false">CH4</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-hf" role="tabpanel" aria-labelledby="pills-hf-tab">
+                <iframe src="ekivalenHF.html"></iframe>
+            </div>
+            <div class="tab-pane fade" id="pills-nh3" role="tabpanel" aria-labelledby="pills-nh3-tab">
+                <iframe src="ekivalenNH3.html"></iframe>
+            </div>
+            <div class="tab-pane fade" id="pills-ch4" role="tabpanel" aria-labelledby="pills-ch4-tab">
+                <iframe src="ekivalenCH4.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

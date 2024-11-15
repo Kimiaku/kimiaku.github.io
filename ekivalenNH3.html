@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kepolaran molekul berdasarkan keelektronegatifan</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f6f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Menyembunyikan scroll pada konten */
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .reaction-options {
+            margin-top: 20px;
+        }
+
+        .atom-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin-top: 50px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .atom {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+        }
+
+        .core {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+
+        .layer {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #de2e8f;
+            background-color: rgba(233, 203, 222, 0.2);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .electron {
+            width: 10px;
+            height: 10px;
+            background-color: rgb(86, 90, 90);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Atom N */
+        #N {
+            background-color: #008000; /* Warna untuk N */
+        }
+
+        /* Atom H */
+        .H {
+            background-color: #0855c0; /* Warna untuk H */
+        }
+
+        /* Posisi untuk atom H */
+        .H1 { top: 13%; left: 47%; } /* Memperbesar jarak horizontal */
+        .H2 { top: 46%; left: 22.4%; } /* Memperbesar jarak vertikal dan horizontal */
+        .H3 { top: 46%; left: 71.5%; } /* Memperbesar jarak vertikal dan horizontal */
+
+        .delta {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="reaction-options">
+    <label for="react">Lihat Ikatan Polar:</label>
+    <input type="radio" id="react" name="reaction" onchange="toggleReaction(true)"> Ya
+    <input type="radio" id="no-react" name="reaction" checked onchange="toggleReaction(false)"> Tidak
+</div>
+
+<div class="atom-container">
+    
+
+    <!-- Atom H (mengelilingi N) -->
+    <div class="atom H H1">
+        <!-- Tanda δ+ untuk atom H -->
+        <span id="deltaH1" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H1-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-1" style="top: 100%; left: 50%;"></div>
+        </div>
+    </div>
+
+    <div class="atom H H2">
+        <span id="deltaH2" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H2-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-2" style="top: 50%; left: 100%;"></div>
+        </div>
+    </div>
+
+    <div class="atom H H3">
+        <span id="deltaH3" class="delta" style="display: none;">δ+</span>
+        <div class="core">H</div>
+        <div class="layer" id="H3-layer" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" id="H-3" style="top: 50%; left: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- Atom N (di tengah) -->
+    <div class="atom" id="N">
+        <span id="deltaN" class="delta" style="display: none;">δ-</span>
+        <div class="core">N</div>
+        <div class="layer" id="N-layer-1" style="width: 100px; height: 100px; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;">
+            <div class="electron" style="top: 0%; left: 50%;"></div>
+            <div class="electron" style="top: 100%; left: 50%;"></div>
+        </div>
+        <div class="layer" id="N-layer-2" style="width: 200px; height: 200px; left: 50%; top: 50%; margin-left: -100px; margin-top: -100px;">
+            <div class="electron" id="NE-1" style="top: 0%; left: 50%;"></div>
+            <div class="electron" id="NE-2" style="top: 50%; left: 0%;"></div>
+            <div class="electron" style="top: 100%; left: 45%;"></div>
+            <div class="electron" style="top: 100%; left: 55%;"></div>
+            <div class="electron" id="NE-3" style="top: 50%; left: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function toggleReaction(isReacting) {
+    const H1Layer = document.getElementById("H1-layer");
+    const H2Layer = document.getElementById("H2-layer");
+    const H3Layer = document.getElementById("H3-layer");
+
+
+    if (isReacting) {
+        // Perbesar H1Layer secara vertikal
+        H1Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H1Layer.style.transform = "scaleY(1.46)";
+        H1Layer.style.transformOrigin = "top center"; // Mengubah titik referensi transformasi ke atas
+        
+        // Perbesar H2Layer secara horizontal dan mulailah dari kiri
+        H2Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H2Layer.style.transform = "scaleX(1.46)";
+        H2Layer.style.transformOrigin = "left center"; // Titik referensi di kiri
+
+        // Perbesar H3Layer secara horizontal dan mulailah dari kanan
+        H3Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H3Layer.style.transform = "scaleX(1.46)";
+        H3Layer.style.transformOrigin = "right center"; // Titik referensi di kanan
+
+        // Pindahkan posisi elektron
+        document.getElementById("NE-1").style.left = "53%";
+        document.getElementById("NE-2").style.top = "52%";
+        document.getElementById("NE-3").style.top = "52%";
+        document.getElementById("H-1").style.left = "43%";
+        document.getElementById("H-2").style.top = "43%";
+        document.getElementById("H-3").style.top = "43%";
+
+        deltaH1.style.display = "block";
+        deltaH2.style.display = "block";
+        deltaH3.style.display = "block";
+        deltaN.style.display = "block";
+
+    } else {
+        H1Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H1Layer.style.transform = "scaleY(1)";
+        H2Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H2Layer.style.transform = "scaleY(1)";
+        H3Layer.style.transition = "transform 1s ease-in-out"; // Transisi perubahan bentuk lapisan
+        H3Layer.style.transform = "scaleY(1)";
+
+        // Kembalikan posisi elektron
+        document.getElementById("NE-1").style.left = "50%";
+        document.getElementById("NE-2").style.top = "50%";
+        document.getElementById("NE-3").style.left = "100%";
+        document.getElementById("H-1").style.left = "50%";
+        document.getElementById("H-2").style.left = "100%";
+        document.getElementById("H-3").style.left = "0%";
+
+
+        deltaH1.style.display = "none";
+        deltaH2.style.display = "none";
+        deltaH3.style.display = "none";
+        deltaN.style.display = "none";
+
+    }
+}
+</script>
+
+</body>
+</html>
