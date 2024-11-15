@@ -112,50 +112,18 @@
         }
 
 
-        .element-box {
-            display: inline-block;
-            width: 80px;
-            height: 100px;
-            background-color: #f4c2c2;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            text-align: center;
-            margin: 10px;
-            position: relative;
-            font-family: Arial, sans-serif;
-        }
-
-        .element-box .symbol {
-            font-size: 36px;
-            font-weight: bold;
-            color: green;
-            margin-top: 10px;
-        }
-
-        .element-box .value {
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-
-
     </style>
 </head>
 <body>
 
 <!-- Radio buttons untuk memilih reaksi -->
 <div class="reaction-options">
-    <label for="react">Lihat Ikatan Polar:</label>
+    <label for="react">Lihat Reaksi Ikatan:</label>
     <input type="radio" id="react" name="reaction" onchange="toggleReaction(true)"> Ya
     <input type="radio" id="no-react" name="reaction" checked onchange="toggleReaction(false)"> Tidak
 </div>
 
-<div class="atom-container" style="margin-top: -100px;">
+<div class="atom-container">
     <!-- Atom H -->
     <div class="atom" id="H">
         <!-- Tanda δ+ untuk atom H -->
@@ -196,20 +164,6 @@
 
     </div>
 </div>
-
-
-<div style="position: relative; width: 100%; margin-top: -100px;">
-    <div class="element-box ">
-        <div class="symbol" style="color: #0855c0;">H</div>
-        <div class="value">2.1</div>
-    </div>
-
-    <div class="element-box">
-        <div class="symbol" style="color: #acac04;">F</div>
-        <div class="value">4.0</div>
-    </div>
-</div>
-    
 
 <script>
     function toggleReaction(isReacting) {
@@ -276,6 +230,11 @@
         }
     }
 </script>
+
+    
+
+
+
 
     
 
